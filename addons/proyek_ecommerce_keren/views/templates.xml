@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="product_page_custom_note" inherit_id="website_sale.product" name="Catatan Internal di Produk">
+        <xpath expr="//div[@id='product_details']" position="inside">
+            <div t-if="product.catatan_internal" class="mt-4 mt-4 custom_note_box">
+                <hr/>
+                <h4 class="mt-2">Deskripsi</h4>
+                <p>
+                    <t t-esc="product.catatan_internal"/>
+                </p>
+            </div>
+        </xpath>
+    </template>
+</odoo>
