@@ -1,14 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="product_page_custom_note" inherit_id="website_sale.product" name="Catatan Internal di Produk">
-        <xpath expr="//div[@id='product_details']" position="inside">
-            <div t-if="product.catatan_internal" class="mt-4 mt-4 custom_note_box">
-                <hr/>
-                <h4 class="mt-2">Deskripsi</h4>
-                <p>
-                    <t t-esc="product.catatan_internal"/>
-                </p>
+    <template id="product_page_custom_note" inherit_id="website_sale.product" name="Deskripsi Produk Kustom via Tab">
+        <xpath expr="//div[@id='product_full_description']" position="replace">
+            <div class="container mt-4">
+                <t t-if="product.catatan_internal or product.spesifikasi_produk">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" t-if="product.catatan_internal">
+                            <a class="nav-link" 
+                               t-att-class="'nav-link active' if product.catatan_internal else 'nav-link'"
+                               data-bs-toggle="tab" 
+                               href="#product_custom_desc_tab"
+                               role="tab">Deskripsi</a>
+                        </li>
+                        <li class="nav-item" t-if="product.spesifikasi_produk or product.negara_pembuat or product.tanggal_rilis or product.is_edisi_kolektor">
+                            <a class="nav-link" 
+                               t-att-class="'nav-link active' if not product.catatan_internal else 'nav-link'"
+                               data-bs-toggle="tab" 
+                               href="#product_specs_tab"
+                               role="tab">Spesifikasi</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content mt-3 p-3 border-top-0 border bg-white" id="product_tabs_content">
+                        <div class="tab-pane fade" 
+                             t-att-class="'tab-pane fade show active' if product.catatan_internal else 'tab-pane fade'"
+                             id="product_custom_desc_tab" 
+                             role="tabpanel"
+                             t-if="product.catatan_internal">
+                            <div t-field="product.catatan_internal" class="mb-0"/>
+                        </div>
+                        
+                        <div class="tab-pane fade" 
+                             t-att-class="'tab-pane fade show active' if not product.catatan_internal else 'tab-pane fade'"
+                             id="product_specs_tab" 
+                             role="tabpanel"
+                             t-if="product.spesifikasi_produk or product.negara_pembuat or product.tanggal_rilis or product.is_edisi_kolektor">
+                            
+                            <div t-if="product.spesifikasi_produk" t-field="product.spesifikasi_produk" class="oe_structure mb-3"/>
+                            
+                            <hr t-if="product.spesifikasi_produk"/>
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr t-if="product.negara_pembuat">
+                                        <th style="width: 150px;">Negara Pembuat:</th>
+                                        <td><span t-field="product.negara_pembuat"/></td>
+                                    </tr>
+                                    <tr t-if="product.tanggal_rilis">
+                                        <th>Tanggal Rilis:</th>
+                                        <td><span t-field="product.tanggal_rilis" t-options="{'format': 'dd MMMM yyyy'}"/></td>
+                                    </tr>
+                                    <tr t-if="product.is_edisi_kolektor">
+                                        <th>Edisi:</th>
+                                        <td><span class="badge bg-primary">Kolektor</span> <i class="fa fa-star text-warning"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
             </div>
         </xpath>
     </template>
+    <template id="cart_lines_tax_details_inherit" inherit_id="website_sale.cart_lines" name="Rincian Pajak di Keranjang">
+
+    <xpath expr="//div[@name='website_sale_cart_line_price']" position="inside">
+
+        <div class="text-muted small mt-1">
+            <t t-foreach="line.tax_id" t-as="tax">
+                <t t-set="tax_amount_per_line" t-value="line.price_total - line.price_subtotal"/>
+                <div class="oe_price_tax_info" t-if="tax_amount_per_line > 0">
+                    Belum Termasuk Pajak <t t-esc="tax.name"/>:
+                    <strong t-out="tax_amount_per_line" t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                </div>
+            </t>
+        </div>
+
+    </xpath>
+</template>
 </odoo>

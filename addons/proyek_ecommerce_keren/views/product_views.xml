@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
         <record id="product_template_form_view_inherit" model="ir.ui.view">
@@ -5,8 +6,17 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='categ_id']" position="after">
-                    <field name="catatan_internal" placeholder="cth: Cek stok ke Gudang B setiap hari Senin..."/>
+                <xpath expr="//page[@name='general_information']//field[@name='categ_id']" position="after">
+                    <field name="catatan_internal" placeholder="Isi deskripsi yang akan muncul di Tab Deskripsi..." widget="text"/>
+                </xpath>
+
+                <xpath expr="//page[@name='general_information']//field[@name='description']" position="after">
+                    <field name="spesifikasi_produk" placeholder="Isi spesifikasi produk..." widget="html"/>
+                    <group string="Informasi Tambahan">
+                        <field name="negara_pembuat"/>
+                        <field name="tanggal_rilis"/>
+                        <field name="is_edisi_kolektor"/>
+                    </group>
                 </xpath>
             </field>
         </record>

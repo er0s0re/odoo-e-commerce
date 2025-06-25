@@ -1,15 +1,27 @@
-/* File: static/src/css/style.css */
-
-.custom_note_box {
-  background-color: #f8f9fa; /* Warna latar abu-abu muda, biar beda */
-  border-left: 5px solid #8A2BE2; /* Garis ungu di kiri sebagai aksen */
-  padding: 16px; /* Jarak dari konten ke tepi kotak */
-  border-radius: 8px; /* Bikin ujungnya agak melengkung, biar modern */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Kasih bayangan tipis biar keliatan 'ngambang' */
+/* Header yang bisa di-klik */
+.custom_note_box_header {
+  background-color: #f8f9fa;
+  border-left: 5px solid #8A2BE2;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
 }
-
-/* Biar tulisannya lebih menonjol */
-.custom_note_box h4 {
+.custom_note_box_header:hover {
+    transform: translateY(-2px); /* Efek sedikit terangkat saat cursor di atasnya */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.custom_note_box_header h4 {
     color: #555;
     font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Konten deskripsinya */
+.custom_note_box_content {
+  border: 1px solid #e9ecef;
+  border-top: none; /* Hapus border atas biar nyambung sama header */
+  padding: 16px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
