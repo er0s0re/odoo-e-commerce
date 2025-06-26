@@ -1,4 +1,6 @@
-/* Header yang bisa di-klik */
+/* Enhanced CSS untuk fitur Login Required */
+
+/* Header yang bisa di-klik (existing) */
 .custom_note_box_header {
   background-color: #f8f9fa;
   border-left: 5px solid #8A2BE2;
@@ -7,21 +9,181 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   transition: all 0.2s ease-in-out;
 }
+
 .custom_note_box_header:hover {
-    transform: translateY(-2px); /* Efek sedikit terangkat saat cursor di atasnya */
+    transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
+
 .custom_note_box_header h4 {
     color: #555;
     font-weight: 600;
     margin-bottom: 0;
 }
 
-/* Konten deskripsinya */
+/* Konten deskripsinya (existing) */
 .custom_note_box_content {
   border: 1px solid #e9ecef;
-  border-top: none; /* Hapus border atas biar nyambung sama header */
+  border-top: none;
   padding: 16px;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+
+/* === STYLING UNTUK LOGIN REQUIRED === */
+
+/* Alert untuk login required */
+.alert.alert-warning {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+    border: 2px solid #ffc107;
+}
+
+.alert.alert-info {
+    border-radius: 8px;
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    color: #0d47a1;
+}
+
+/* Tombol disabled untuk add to cart */
+.btn.disabled {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.7;
+}
+
+.btn.disabled:hover {
+    background-color: #5a6268 !important;
+    border-color: #545b62 !important;
+    transform: none !important;
+}
+
+/* Styling untuk modal login required */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-header.bg-warning {
+    background-color: #ffc107 !important;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.modal-body i.fa-lock {
+    color: #ffc107;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Overlay untuk produk (ketika belum login) */
+.login-required-overlay {
+    transition: all 0.3s ease;
+}
+
+.login-required-overlay:hover {
+    background: rgba(255,255,255,0.9) !important;
+}
+
+.login-required-overlay:hover i {
+    color: #ffc107 !important;
+    transform: scale(1.2);
+}
+
+/* Animasi berkedip untuk alert warning */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.7; }
+}
+
+.alert-warning.blink {
+    animation: blink 2s infinite;
+}
+
+/* Styling untuk tab navigation (hanya tampil jika sudah login) */
+.nav-tabs .nav-link {
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    font-weight: 600;
+}
+
+/* Tab content styling */
+.tab-content {
+    border-radius: 0 8px 8px 8px;
+    min-height: 200px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .login-required-overlay {
+        font-size: 12px;
+    }
+    
+    .login-required-overlay i {
+        font-size: 1.5rem !important;
+    }
+    
+    .modal-dialog {
+        margin: 1rem;
+    }
+    
+    .alert {
+        font-size: 14px;
+    }
+}
+
+/* Animasi loading untuk tombol login */
+.btn-primary.loading {
+    position: relative;
+    color: transparent;
+}
+
+.btn-primary.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Hover effect untuk card produk */
+.oe_product_cart {
+    transition: all 0.3s ease;
+}
+
+.oe_product_cart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
